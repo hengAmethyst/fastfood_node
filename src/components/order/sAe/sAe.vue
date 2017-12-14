@@ -3,10 +3,10 @@
 		<div class="banner">
 			<div class="swiper-container" style="height:100%;position:relative;">
 				<div class="swiper-wrapper" style="width:100%;height:2rem">
-				    <div class="swiper-slide" style="width:100%;height:2rem" v-for="item in this.$store.state.merchantPicUrl" v-if="ifHasPic">
-				    		<img :src="item.pictureFilePath" style="width:100%;height:2rem"/>
+				    <div class="swiper-slide" style="width:100%;height:2rem" v-for="item in 3">
+				    		<img :src="merchantInfo.merchantPicUrl" style="width:100%;height:2rem"/>
 				    </div>
-				    <div class="swiper-slide" style="width:100%;height:2rem" v-if="ifHasPic==false">
+				    <div class="swiper-slide" style="width:100%;height:2rem">
 				    		<img src="../../../assets/icons/餐厅背景.png" style="width:100%;height:2rem"/>
 				    </div>
 				</div>
@@ -16,7 +16,7 @@
 		</div>
 		<div class="averageStar">
 			<span>
-				{{this.$store.state.merchantName}}
+				{{merchantInfo.merchantName}}
 			</span>			
 		</div>
 		<div class='information'>
@@ -67,8 +67,8 @@ import Swiper from '../../../../static/swiper-3.4.2.jquery.min.js'
 		}
 		,
 		created(){
-			this.$http.post(this.$store.state.merchantHttp+"/merchant/merchantBasicInfo/api/pc/getMerchantBasicInfoById",
-				JSON.stringify({"param":{"merchantId":this.$store.state.merchantId},"channel":1})
+			this.$http.post(this.$store.state.merchantHttp+"/merchantBasicInfo",
+				JSON.stringify({"merchantId":this.$store.state.merchantId})
 				,{emulateJSON:true})
 				.then(function(res){
 					console.log(res)
@@ -87,12 +87,6 @@ import Swiper from '../../../../static/swiper-3.4.2.jquery.min.js'
 				pagination : '.swiper-pagination',
 			    autoplay: 2000//可选选项，自动滑动
 			})
-		}
-		,
-		computed:{
-			ifHasPic(){
-				return this.$store.state.ifHasPic
-			}
 		}
 	}
 </script>

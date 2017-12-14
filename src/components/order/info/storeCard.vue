@@ -58,8 +58,8 @@
 			</p>
 			
 			<p class="money">
-				<span>应付金额<i>￥{{chargeMoney/100}}</i></span>
-				<span>到账金额<i>￥{{actualMoney/100}}</i></span>
+				<span>应付金额<i>￥{{chargeMoney}}</i></span>
+				<span>到账金额<i>￥{{actualMoney}}</i></span>
 			</p>
 		</div>
 		<!--记录-->
@@ -144,8 +144,8 @@ import saveLocal from '../../../js/saveLocal.js'
 				this.btnActive = true
 				this.$refs.cards.forEach((item) => {item.className = ''})
 				this.$refs.cards[index].className = 'active'
-				this.chargeMoney = target.money*100
-				this.actualMoney = target.actualMoney
+				this.chargeMoney = target.money
+				this.actualMoney = target.giveMoney
 			},
 			//自定义金额判断
 			defined(){
@@ -264,13 +264,13 @@ import saveLocal from '../../../js/saveLocal.js'
 		,
 		created(){
 			//获取充值标签
-			this.$http.post(this.$store.state.accountHttp+"/jinghan-account/api/user/queryMerchantRecharge",
-				JSON.stringify({"param":{"merchantId":this.$store.state.merchantId}})
+			this.$http.post(this.$store.state.merchantHttp+"/storeCard",
+				JSON.stringify({"merchantId":this.$store.state.merchantId})
 				,{emulateJSON:true})
 				.then(function(res){
 					console.log(res)
 					if(res.body.data){
-						this.chargeLabel = res.body.data.acctMemberRechargeSetupList
+						this.chargeLabel = res.body.data.cardList
 						this.showDefined = false
 						this.chargeLabel.forEach(item => {
 							item.money = item.money/100
