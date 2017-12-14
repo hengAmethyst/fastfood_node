@@ -1,6 +1,8 @@
 # work
 
-> a new vue project
+> node后台的快餐点餐
+
+配合 该仓库里的node_0使用
 
 ## Build Setup
 
